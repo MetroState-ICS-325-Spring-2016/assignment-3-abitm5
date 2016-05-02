@@ -1,7 +1,10 @@
 1. SELECT COUNT(*) FROM `customers` WHERE `country` = "Germany";
 13
 
-2. SELECT contactFirstName, contactLastName FROM `customers` WHERE `contactFirstName` LIKE "D%";
+2. SELECT contactFirstName, contactLastName 
+FROM `customers` 
+WHERE `contactFirstName` 
+LIKE "D%";
 +------------------+-----------------+
 | contactFirstName | contactLastName |
 +------------------+-----------------+
@@ -14,6 +17,36 @@
 | Dan              | Lewis           |
 +------------------+-----------------+
 
+3. SELECT customerName 
+FROM customers 
+WHERE salesRepEmployeeNumber = (
+SELECT employeeNumber 
+FROM employees 
+WHERE lastName = 'Thompson'
+AND firstName = 'Leslie');
+
++------------------------------+
+| customerName                 |
++------------------------------+
+| Signal Gift Stores           |
+| Toys4GrownUps.com            |
+| Boards & Toys Co.            |
+| Collectable Mini Designs Co. |
+| Men 'R' US Retailers, Ltd.   |
+| West Coast Collectables Co.  |
++------------------------------+
+
+4. SELECT amount FROM payments 
+WHERE customerNumber = (
+SELECT customerNumber FROM customers 
+WHERE customerName = 'Boards & Toys Co.') 
+ORDER BY paymentDate DESC LIMIT 0,1;
+
++---------+
+| amount  |
++---------+
+| 3452.75 |
++---------+
 
 5. SELECT COUNT(*) FROM `payments` WHERE `amount` > 20000;
 195
